@@ -1,62 +1,62 @@
-    package com.littlefeet.stringhistory.domain.entity;
+  package com.littlefeet.stringhistory.domain.entity;
 
-    import java.time.LocalDateTime;
-    import org.seasar.doma.Column;
-    import org.seasar.doma.Entity;
-    import org.seasar.doma.Id;
-    import org.seasar.doma.Table;
-    import org.seasar.doma.Version;
+  import java.time.LocalDateTime;
+  import org.seasar.doma.Column;
+  import org.seasar.doma.Entity;
+  import org.seasar.doma.Id;
+  import org.seasar.doma.Table;
+  import org.seasar.doma.Version;
 
 /**
-    * 
+  * 
 */
 @Entity
-    @Table(name = "guitar")
+  @Table(name = "guitar")
 public class Guitar {
 
-        /** ギターid */
-        @Id
-        @Column(name = "id")
-    public String id;
+    /** ギターid */
+    @Id
+    @Column(name = "id")
+  public String id;
 
-        /** メンバーid(外部キー) */
-        @Column(name = "member_id")
-    public String memberId;
+    /** メンバーid(外部キー) */
+    @Column(name = "member_id")
+  public String memberId;
 
-        /** ギター名 */
-        @Column(name = "name")
-    public String name;
+    /** ギター名 */
+    @Column(name = "name")
+  public String name;
 
-        /** 説明 */
-        @Column(name = "description")
-    public String description;
+    /** 説明 */
+    @Column(name = "description")
+  public String description;
 
-        /** ギター機種 */
-        @Column(name = "body_type")
-    public String bodyType;
+    /** ギター機種 */
+    @Column(name = "body_type")
+  public String bodyType;
 
-        /** メーカー */
-        @Column(name = "maker")
-    public String maker;
+    /** メーカー */
+    @Column(name = "maker")
+  public String maker;
 
-        /** ギター画像 */
-        @Column(name = "image_url")
-    public String imageUrl;
+    /** ギター画像 */
+    @Column(name = "image_url")
+  public String imageUrl;
 
-        /** 削除フラグ */
-        @Column(name = "is_deleted")
-    public Boolean isDeleted;
+    /** 削除フラグ */
+    @Column(name = "is_deleted")
+  public Boolean isDeleted;
 
-        /** バージョン */
-        @Version
-        @Column(name = "version")
-    public Integer version;
+    /** バージョン */
+    @Version
+    @Column(name = "version")
+  public Integer version;
 
-        /** 登録日時 */
-        @Column(name = "created_at")
-    public LocalDateTime createdAt;
+    /** 登録日時 */
+    @Column(name = "created_at")
+  public LocalDateTime createdAt;
 
-        /** 更新日時 */
-        @Column(name = "updated_at")
-    public LocalDateTime updatedAt;
+    /** 更新日時 */
+    @Column(name = "updated_at")
+  public LocalDateTime updatedAt;
 }
