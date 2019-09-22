@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.2.0.M6"
 	id("io.spring.dependency-management") version "1.0.8.RELEASE"
+	id("org.flywaydb.flyway") version "5.2.3"
 	kotlin("jvm") version "1.3.50"
 	kotlin("plugin.spring") version "1.3.50"
 }
@@ -42,4 +43,12 @@ tasks.withType<KotlinCompile> {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "1.8"
 	}
+}
+
+/* flyway db migration task */
+flyway {
+	url = "jdbc:mysql://localhost:3306/strings_history?useSSL=false"
+	user = "root"
+	password = "pass"
+	locations = arrayOf("filesystem:src/main/resources/db/migration", "filesystem:src/main/resources/db/insert")
 }
