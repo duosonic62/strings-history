@@ -1,5 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val domaVersion = "2.19.3"
+val domaGenVersion = "2.19.3"
+val domaSpringVersion = "1.1.1"
+
+val compileKotlin: KotlinCompile by tasks
+
+
 plugins {
 	id("org.springframework.boot") version "2.2.0.M6"
 	id("io.spring.dependency-management") version "1.0.8.RELEASE"
@@ -13,26 +20,38 @@ group = "com.littlefeet"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
+
 repositories {
 	mavenCentral()
 	maven { url = uri("https://repo.spring.io/milestone") }
 }
 
 dependencies {
+	/* spring boot */
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
+
+	/* kotlin */
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.flywaydb:flyway-core")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+
+	/* doma */
+	compile("org.seasar.doma.boot:doma-spring-boot-starter:$domaSpringVersion")
+	kapt("org.seasar.doma:doma:$domaVersion")
+	implementation("org.seasar.doma:doma:$domaVersion")
+
+	/* db connector */
+	compile("mysql:mysql-connector-java:5.1.38")
+	/* flyway migration */
+	implementation("org.flywaydb:flyway-core")
+
+	/* test */
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
 	testImplementation("io.projectreactor:reactor-test")
-
-	compile("org.seasar.doma.boot:doma-spring-boot-starter:1.0.2")
-	compile("mysql:mysql-connector-java:5.1.38")
 }
 
 tasks.withType<Test> {
@@ -45,6 +64,24 @@ tasks.withType<KotlinCompile> {
 		jvmTarget = "1.8"
 	}
 }
+
+/* doma */
+kapt {
+	arguments {
+		arg("doma.resources.dir", compileKotlin.destinationDir)
+	}
+}
+
+tasks.register("copyDomaResources", Sync::class) {
+	from("src/main/resources")
+	into(compileKotlin.destinationDir)
+	include("doma.compile.config")
+	include("META-INF/**/*.sql")
+	include("META-INF/**/*.script")
+}
+
+compileKotlin.dependsOn(tasks.getByName("copyDomaResources"))
+
 
 /* flyway db migration task */
 flyway {
