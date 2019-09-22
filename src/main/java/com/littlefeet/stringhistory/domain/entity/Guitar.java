@@ -8,55 +8,45 @@
   import org.seasar.doma.Version;
 
 /**
-  * 
+*
 */
 @Entity
   @Table(name = "guitar")
-public class Guitar {
+public class Guitar extends CommonEntity {
 
-    /** ギターid */
-    @Id
-    @Column(name = "id")
-  public String id;
+      /**
+      * メンバーid(外部キー)
+      */
+      @Column(name = "member_id")
+      public String memberId;
 
-    /** メンバーid(外部キー) */
-    @Column(name = "member_id")
-  public String memberId;
+      /**
+      * ギター名
+      */
+      @Column(name = "name")
+      public String name;
 
-    /** ギター名 */
-    @Column(name = "name")
-  public String name;
+      /**
+      * 説明
+      */
+      @Column(name = "description")
+      public String description;
 
-    /** 説明 */
-    @Column(name = "description")
-  public String description;
+      /**
+      * ギター機種
+      */
+      @Column(name = "body_type")
+      public String bodyType;
 
-    /** ギター機種 */
-    @Column(name = "body_type")
-  public String bodyType;
+      /**
+      * メーカー
+      */
+      @Column(name = "maker")
+      public String maker;
 
-    /** メーカー */
-    @Column(name = "maker")
-  public String maker;
-
-    /** ギター画像 */
-    @Column(name = "image_url")
-  public String imageUrl;
-
-    /** 削除フラグ */
-    @Column(name = "is_deleted")
-  public Boolean isDeleted;
-
-    /** バージョン */
-    @Version
-    @Column(name = "version")
-  public Integer version;
-
-    /** 登録日時 */
-    @Column(name = "created_at")
-  public LocalDateTime createdAt;
-
-    /** 更新日時 */
-    @Column(name = "updated_at")
-  public LocalDateTime updatedAt;
+      /**
+      * ギター画像
+      */
+      @Column(name = "image_url")
+      public String imageUrl;
 }
