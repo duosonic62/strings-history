@@ -4,6 +4,7 @@ plugins {
 	id("org.springframework.boot") version "2.2.0.M6"
 	id("io.spring.dependency-management") version "1.0.8.RELEASE"
 	id("org.flywaydb.flyway") version "5.2.3"
+	id("org.jetbrains.kotlin.kapt") version "1.2.71"
 	kotlin("jvm") version "1.3.50"
 	kotlin("plugin.spring") version "1.3.50"
 }
@@ -51,4 +52,11 @@ flyway {
 	user = "root"
 	password = "pass"
 	locations = arrayOf("filesystem:src/main/resources/db/migration", "filesystem:src/main/resources/db/insert")
+}
+
+/* annotation processing configure */
+configurations {
+	compileOnly {
+		extendsFrom(configurations.annotationProcessor.get())
+	}
 }
