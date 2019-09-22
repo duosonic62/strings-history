@@ -41,8 +41,7 @@ dependencies {
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
 	/* doma */
-	compile("org.seasar.doma.boot:doma-spring-boot-starter:$domaSpringVersion")
-	kapt("org.seasar.doma:doma:$domaVersion")
+  implementation("org.seasar.doma.boot:doma-spring-boot-starter:$domaSpringVersion")
 	implementation("org.seasar.doma:doma:$domaVersion")
 
 	/* db connector */
