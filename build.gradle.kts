@@ -29,7 +29,7 @@ repositories {
 dependencies {
 
   /* spring boot */
-	implementation("org.springframework.boot:spring-boot-starter-web")
+//	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
   annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
