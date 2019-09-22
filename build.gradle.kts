@@ -29,7 +29,7 @@ repositories {
 dependencies {
 
   /* spring boot */
-	implementation("org.springframework.boot:spring-boot-starter-web")
+//	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
   annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
@@ -54,6 +54,9 @@ dependencies {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
 	testImplementation("io.projectreactor:reactor-test")
+
+  /* h2 db */
+  testCompile("com.h2database:h2:1.4.199")
 }
 
 tasks.withType<Test> {
