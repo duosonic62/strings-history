@@ -1,0 +1,52 @@
+/**
+ * create entity and dao, sql
+ *  $ ./gradlew -b ./doma-gen.gradle domaGen
+ */
+configurations {
+    domaGenRuntime
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+}
+
+dependencies {
+    domaGenRuntime 'org.seasar.doma:doma-gen:2.19.3'
+    domaGenRuntime 'mysql:mysql-connector-java:6.0.6'
+}
+
+def basePackage = 'com.littlefeet.stringhistory.domain'
+def resourceDir = 'src/main/resources'
+def destBaseDir = 'src/main/java/com/example/domain'
+
+
+task domaGen doLast {
+    ant.taskdef(
+            resource: 'domagentask.properties',
+            classpath: configurations.domaGenRuntime.asPath
+    )
+    ant.gen(
+            dialectName: "mysql",
+            driverClassName: "com.mysql.cj.jdbc.Driver",
+            url: "jdbc:mysql://localhost:3306/strings_history?useSSL=false&nullNamePatternMatchesAll=true",
+            user: "root",
+            password: "pass",
+            templatePrimaryDir: "${resourceDir}/db/config/doma/templates",
+            tableNamePattern: ".*",
+            ignoredTableNamePattern: "(sys_config|flyway_schema_history)") {
+        entityConfig(
+                overwrite: "true",
+                packageName: "${basePackage}.entity",
+                useListener: "false",
+                useAccessor: false
+        )
+        daoConfig(
+                overwrite: "false",
+                packageName: "${basePackage}.repository"
+        )
+        sqlConfig(
+                overwrite: "false"
+        )
+    }
+}
