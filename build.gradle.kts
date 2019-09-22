@@ -54,6 +54,9 @@ dependencies {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
 	testImplementation("io.projectreactor:reactor-test")
+
+  /* h2 db */
+  testCompile("com.h2database:h2:1.4.199")
 }
 
 tasks.withType<Test> {
