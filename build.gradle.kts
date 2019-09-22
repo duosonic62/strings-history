@@ -28,6 +28,9 @@ dependencies {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
 	testImplementation("io.projectreactor:reactor-test")
+
+	compile("org.seasar.doma.boot:doma-spring-boot-starter:1.0.2")
+	compile("mysql:mysql-connector-java:5.1.38")
 }
 
 tasks.withType<Test> {
