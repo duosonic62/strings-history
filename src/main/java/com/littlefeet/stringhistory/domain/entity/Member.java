@@ -8,43 +8,27 @@
   import org.seasar.doma.Version;
 
 /**
-  * 
+*
 */
 @Entity
   @Table(name = "member")
-public class Member {
+public class Member extends CommonEntity {
 
-    /** メンバーid */
-    @Id
-    @Column(name = "id")
-  public String id;
+      /**
+      * メンバー名
+      */
+      @Column(name = "name")
+      public String name;
 
-    /** メンバー名 */
-    @Column(name = "name")
-  public String name;
+      /**
+      * アクセストークン
+      */
+      @Column(name = "token")
+      public String token;
 
-    /** アクセストークン */
-    @Column(name = "token")
-  public String token;
-
-    /** トークン有効期限 */
-    @Column(name = "token_expired")
-  public LocalDateTime tokenExpired;
-
-    /** 削除フラグ */
-    @Column(name = "is_deleted")
-  public Boolean isDeleted;
-
-    /** バージョン */
-    @Version
-    @Column(name = "version")
-  public Integer version;
-
-    /** 登録日時 */
-    @Column(name = "created_at")
-  public LocalDateTime createdAt;
-
-    /** 更新日時 */
-    @Column(name = "updated_at")
-  public LocalDateTime updatedAt;
+      /**
+      * トークン有効期限
+      */
+      @Column(name = "token_expired")
+      public LocalDateTime tokenExpired;
 }

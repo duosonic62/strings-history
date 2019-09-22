@@ -8,55 +8,45 @@
   import org.seasar.doma.Version;
 
 /**
-  * 
+*
 */
 @Entity
   @Table(name = "string")
-public class String {
+public class String extends CommonEntity {
 
-    /** 弦id */
-    @Id
-    @Column(name = "id")
-  public String id;
+      /**
+      * 弦名
+      */
+      @Column(name = "name")
+      public String name;
 
-    /** 弦名 */
-    @Column(name = "name")
-  public String name;
+      /**
+      * 説明
+      */
+      @Column(name = "description")
+      public String description;
 
-    /** 説明 */
-    @Column(name = "description")
-  public String description;
+      /**
+      * メーカー
+      */
+      @Column(name = "maker")
+      public String maker;
 
-    /** メーカー */
-    @Column(name = "maker")
-  public String maker;
+      /**
+      * 細い弦のゲージ
+      */
+      @Column(name = "thin_gauge")
+      public Short thinGauge;
 
-    /** 細い弦のゲージ */
-    @Column(name = "thin_gauge")
-  public Integer thinGauge;
+      /**
+      * 太い弦のゲージ
+      */
+      @Column(name = "thick_gauge")
+      public Short thickGauge;
 
-    /** 太い弦のゲージ */
-    @Column(name = "thick_gauge")
-  public Integer thickGauge;
-
-    /** 商品URL */
-    @Column(name = "url")
-  public String url;
-
-    /** 削除フラグ */
-    @Column(name = "is_deleted")
-  public Boolean isDeleted;
-
-    /** バージョン */
-    @Version
-    @Column(name = "version")
-  public Integer version;
-
-    /** 登録日時 */
-    @Column(name = "created_at")
-  public LocalDateTime createdAt;
-
-    /** 更新日時 */
-    @Column(name = "updated_at")
-  public LocalDateTime updatedAt;
+      /**
+      * 商品URL
+      */
+      @Column(name = "url")
+      public String url;
 }
