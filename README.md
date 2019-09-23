@@ -11,3 +11,22 @@ docker run --name strings-mysql \
  --character-set-server=utf8mb4\ 
  --collation-server=utf8mb4_general_ci
 ```
+
+## swagger
+### code gen
+```
+docker run --rm -v $PWD:/local \
+  openapitools/openapi-generator-cli generate \
+  -i /local/swagger.yml \
+  -g kotlin-spring \
+  --additional-properties useBeanValidation=true \
+  --enable-post-process-file \
+  -o /local \
+  -c /local/kotlin-server-config.json
+```
+
+```
+docker run --rm -v $PWD:/local \
+  openapitools/openapi-generator-cli validate \
+  -i local/swagger.yml
+```
