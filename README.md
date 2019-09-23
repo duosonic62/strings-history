@@ -14,6 +14,13 @@ docker run --name strings-mysql \
 
 ## swagger
 ### code gen
+* usage
+```shell
+$ sh swagger-gen.sh
+```
+
+* swagger generate
+use docker openapi-generator image
 ```
 docker run --rm -v $PWD:/local \
   openapitools/openapi-generator-cli generate \
@@ -25,6 +32,7 @@ docker run --rm -v $PWD:/local \
   -c /local/kotlin-server-config.json
 ```
 
+* swagger validate
 ```
 docker run --rm -v $PWD:/local \
   openapitools/openapi-generator-cli validate \
