@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
-class GlobalExceptionHandller {
+class GlobalExceptionHandler {
   companion object : KtLog()
 
   @ExceptionHandler(Exception::class)
