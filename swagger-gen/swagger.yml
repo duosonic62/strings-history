@@ -1,0 +1,214 @@
+openapi: 3.0.0
+
+info:
+  title: Strings History
+  description: ギター弦管理用アプリケーション
+  version: 1.0.0
+
+servers:
+  - url: http://undifined.com
+    description: 未定
+
+paths:
+  /v1/member:
+    post:
+      tags:
+        - member
+      description: メンバー登録
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberPostParameter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberRegisterInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+    get:
+      tags:
+        - member
+      description: メンバー情報取得
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+    put:
+      tags:
+        - member
+      description: メンバー情報取得
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/authorization'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberPutParameter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+    delete:
+      tags:
+        - member
+      description: メンバー情報削除
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
+components:
+  parameters:
+    authorization:
+      name: Authorization
+      in: header
+      required: true
+      description: アクセストークン
+      schema:
+        type: string
+
+  responses:
+    RequestError:
+      description: リクエスト不正エラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    AuthorizationError:
+      description: 認証エラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    NotFoundError:
+      description: NotFoundエラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    SystemError:
+      description: システムエラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      type: object
+      description: 共通エラーオブジェクト
+      required:
+        - code
+        - messsage
+      properties:
+        code:
+          type: integer
+          description: エラーコード
+        message:
+          type: string
+          description: エラーメッセージ
+
+    UserName:
+      type: string
+      description: ユーザ名
+      minLength: 1
+      maxLength: 256
+
+    MemberPostParameter:
+      description: メンバー登録パラメータ
+      type: object
+      required:
+        - uid
+        - name
+      properties:
+        uid:
+          type: string
+          description: firebaseで払い出されたuid
+        name:
+          $ref: '#/components/schemas/UserName'
+
+    MemberPutParameter:
+      description: メンバー情報変更パラメータ
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          $ref: '#/components/schemas/UserName'
+
+    MemberRegisterInformation:
+      description: メンバー登録情報
+      type: object
+      required:
+        - token
+        - name
+      properties:
+        token:
+          type: string
+          description: アクセストークン
+        name:
+          $ref: '#/components/schemas/UserName'
+
+    MemberInformation:
+      description: メンバー情報
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          $ref: '#/components/schemas/UserName'
