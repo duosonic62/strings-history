@@ -15,6 +15,12 @@
 public class Member extends CommonEntity {
 
       /**
+      * 外部認証紐付け用uid
+      */
+      @Column(name = "uid")
+      public String uid;
+
+      /**
       * メンバー名
       */
       @Column(name = "name")

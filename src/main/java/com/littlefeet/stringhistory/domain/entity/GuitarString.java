@@ -11,8 +11,8 @@
 *
 */
 @Entity
-  @Table(name = "string")
-public class String extends CommonEntity {
+  @Table(name = "guitar_string")
+public class GuitarString extends CommonEntity {
 
       /**
       * 弦名
