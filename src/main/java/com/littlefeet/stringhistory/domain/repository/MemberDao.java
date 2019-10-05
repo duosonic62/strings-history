@@ -1,6 +1,7 @@
 package com.littlefeet.stringhistory.domain.repository;
 
 import com.littlefeet.stringhistory.domain.entity.Member;
+import com.littlefeet.stringhistory.domain.entity.String;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
@@ -19,7 +20,13 @@ public interface MemberDao {
     @Select
     Member selectById(String id);
 
-    /**
+  /**
+   *
+   */
+  @Select
+  Member selectByToken(String token);
+
+  /**
      * @param id
      * @param version
      * @return the Member entity
