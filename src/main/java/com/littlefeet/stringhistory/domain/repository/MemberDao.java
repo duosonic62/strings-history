@@ -1,7 +1,6 @@
 package com.littlefeet.stringhistory.domain.repository;
 
 import com.littlefeet.stringhistory.domain.entity.Member;
-import com.littlefeet.stringhistory.domain.entity.String;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;

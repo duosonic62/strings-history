@@ -35,7 +35,7 @@ CREATE TABLE guitar
 ) comment ='ギター情報'
     /*! engine = InnoDb */;
 
-CREATE TABLE string
+CREATE TABLE guitar_string
 (
     id          VARCHAR(32)  NOT NULL comment '弦id',
     name        VARCHAR(256) NOT NULL comment '弦名',
@@ -65,7 +65,7 @@ CREATE TABLE string_exchange_log
     PRIMARY KEY (id),
     CONSTRAINT fk_exchange_string_id
         FOREIGN KEY (string_id)
-            REFERENCES string (id)
+          REFERENCES guitar_string (id)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
     CONSTRAINT fk_exchange_guitar_id
