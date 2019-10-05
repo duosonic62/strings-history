@@ -1,14 +1,15 @@
 CREATE TABLE member
 (
-    id            VARCHAR(32) NOT NULL comment 'メンバーid',
-    name          VARCHAR(32) NOT NULL comment 'メンバー名',
-    token         VARCHAR(32) NOT NULL comment 'アクセストークン',
-    token_expired DATETIME    NOT NULL comment 'トークン有効期限',
-    is_deleted    BIT(1)      NOT NULL comment '削除フラグ',
-    version       INT         NOT NULL comment 'バージョン',
-    created_at    DATETIME    NOT NULL comment '登録日時',
-    updated_at    DATETIME comment '更新日時',
-    PRIMARY KEY (id)
+  id            VARCHAR(32) NOT NULL comment 'メンバーid',
+  uid           VARCHAR(32) NOT NULL comment '外部認証紐付け用uid',
+  name          VARCHAR(32) NOT NULL comment 'メンバー名',
+  token         VARCHAR(32) NOT NULL comment 'アクセストークン',
+  token_expired DATETIME    NOT NULL comment 'トークン有効期限',
+  is_deleted    BIT(1)      NOT NULL comment '削除フラグ',
+  version       INT         NOT NULL comment 'バージョン',
+  created_at    DATETIME    NOT NULL comment '登録日時',
+  updated_at    DATETIME comment '更新日時',
+  PRIMARY KEY (id)
 ) comment ='メンバー情報'
     /*! engine = InnoDb */;
 
