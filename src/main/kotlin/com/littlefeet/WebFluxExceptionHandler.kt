@@ -1,5 +1,6 @@
 package com.littlefeet
 
+import com.littlefeet.api.models.Error
 import com.littlefeet.util.KtLog
 import org.springframework.boot.autoconfigure.web.ResourceProperties
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler
