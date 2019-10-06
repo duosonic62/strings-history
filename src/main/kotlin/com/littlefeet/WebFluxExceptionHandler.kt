@@ -1,7 +1,6 @@
-package com.littlefeet.stringshistory
+package com.littlefeet
 
-import com.littlefeet.stringshistory.api.models.Error
-import com.littlefeet.stringshistory.util.KtLog
+import com.littlefeet.util.KtLog
 import org.springframework.boot.autoconfigure.web.ResourceProperties
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler
 import org.springframework.boot.web.reactive.error.ErrorAttributes
