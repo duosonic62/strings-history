@@ -1,7 +1,6 @@
-package com.littlefeet.stringshistory
+package com.littlefeet
 
-import com.littlefeet.stringshistory.api.models.Error
-import com.littlefeet.stringshistory.util.KtLog
+import com.littlefeet.util.KtLog
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -13,9 +12,9 @@ class GlobalExceptionHandler {
   @ExceptionHandler(Exception::class)
   fun handleException(
     ex: java.lang.Exception
-  ): Error {
+  ): com.littlefeet.api.models.Error {
     log.error(ex)
-    return com.littlefeet.stringshistory.api.models.Error(
+    return com.littlefeet.api.models.Error(
       code = HttpStatus.INTERNAL_SERVER_ERROR.value(),
       message = "Internal Server Error."
     )
