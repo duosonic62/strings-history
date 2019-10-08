@@ -20,6 +20,7 @@
 <#list lib.annotationHash?keys as annotation>
   ${annotation}
 </#list>
+@ConfigAutowireable
 @Dao<#if configClassSimpleName??>(config = ${configClassSimpleName}.class)</#if>
 public interface ${simpleName} {
 
