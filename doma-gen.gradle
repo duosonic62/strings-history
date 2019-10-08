@@ -16,9 +16,9 @@ dependencies {
     domaGenRuntime 'mysql:mysql-connector-java:6.0.6'
 }
 
-def basePackage = 'com.littlefeet.stringhistory.domain'
+def basePackage = 'com.littlefeet.domain'
 def resourceDir = 'src/main/resources'
-def destBaseDir = 'src/main/java/com/example/domain'
+def destBaseDir = 'src/main/java/com/littlefeet/domain'
 
 
 task domaGen doLast {

@@ -38,3 +38,9 @@ docker run --rm -v $PWD:/local \
   openapitools/openapi-generator-cli validate \
   -i local/swagger.yml
 ```
+
+## Doma
+### Doma Gen
+```
+$ ./gradlew -b ./doma-gen.gradle domaGen
+```

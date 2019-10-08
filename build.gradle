@@ -1,0 +1,92 @@
+buildscript {
+  ext {
+    kotlinVersion = '1.3.50'
+    springBootVersion = '2.2.0.M4'
+    springBootDomaVersion = '1.1.1'
+    domaVersion = '2.19.3'
+    coroutineVersion = '1.2.1'
+    mysqlVersion = '5.1.38'
+  }
+  repositories {
+    mavenCentral()
+    maven { url = uri("https://repo.spring.io/milestone") }
+    maven { url = uri("https://repo.spring.io/snapshot") }
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+    classpath("org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion")
+    classpath("mysql:mysql-connector-java:6.0.6")
+  }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.littlefeet'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+compileKotlin {
+  kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+  kotlinOptions.jvmTarget = "1.8"
+}
+
+repositories {
+  mavenCentral()
+  maven { url = uri("https://repo.spring.io/milestone") }
+  maven { url = uri("https://repo.spring.io/snapshot") }
+}
+
+// -------------------------------------------
+// for Doma2 with gradle
+// see: http://doma.readthedocs.io/ja/stable/build/#gradle
+// -------------------------------------------
+processResources.destinationDir = compileJava.destinationDir
+compileJava.dependsOn processResources
+
+kapt {
+  arguments {
+    arg("doma.resources.dir", compileKotlin.destinationDir)
+  }
+}
+
+task copyDomaResources(type: Sync) {
+  from sourceSets.main.resources.srcDirs
+  into compileKotlin.destinationDir
+  include 'doma.compile.config'
+  include 'META-INF/**/*.sql'
+  include 'META-INF/**/*.script'
+}
+
+compileKotlin.dependsOn copyDomaResources
+
+dependencies {
+  implementation("org.springframework.boot:spring-boot-starter-webflux")
+  implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+  runtime('org.springframework.boot:spring-boot-devtools')
+
+  compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+  compile("org.jetbrains.kotlin:kotlin-reflect")
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-reactor:$coroutineVersion"
+
+
+  testCompile('org.springframework.boot:spring-boot-starter-test')
+
+  // -------------------------------------------
+  // mysql
+  // -------------------------------------------
+  compile("mysql:mysql-connector-java")
+
+  // -------------------------------------------
+  // Doma2
+  // -------------------------------------------
+  compile "org.seasar.doma.boot:doma-spring-boot-starter:$springBootDomaVersion"
+  compile "org.seasar.doma:doma:$domaVersion"
+}
