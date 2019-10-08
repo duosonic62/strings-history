@@ -18,3 +18,4 @@ class MemberController(
     @RequestHeader httpHeaders: HttpHeaders
   ) = memberService.showMember(CommonHeader.of(httpHeaders))
 }
+
