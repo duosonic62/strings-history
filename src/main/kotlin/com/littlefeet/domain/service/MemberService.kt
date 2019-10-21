@@ -2,6 +2,7 @@ package com.littlefeet.domain.service
 
 import com.littlefeet.api.models.MemberInformation
 import com.littlefeet.api.models.MemberPostParameter
+import com.littlefeet.api.models.MemberPutParameter
 import com.littlefeet.domain.CommonHeader
 import com.littlefeet.domain.converter.MemberConverter
 import com.littlefeet.domain.exception.DbException
@@ -24,6 +25,15 @@ class MemberService(
   ): HttpStatus {
     val insert = memberDao.insert(MemberConverter.convertCreateMember(memberPostParameter))
     return if (insert == 1) HttpStatus.OK
+    else throw DbException("DB ERROR")
+  }
+
+  fun update(
+    commonHeader: CommonHeader,
+    memberPutParameter: MemberPutParameter
+  ): HttpStatus {
+    val update = memberDao.update(MemberConverter.convertUpdateMember(memberPutParameter))
+    return if (update == 1) HttpStatus.OK
     else throw DbException("DB ERROR")
   }
 }
