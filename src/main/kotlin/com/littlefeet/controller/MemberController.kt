@@ -16,28 +16,58 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 
+/**
+ * 会員情報を管理するコントローラ
+ *
+ * @property memberService
+ */
 @RestController
 @RequestMapping("/member")
 class MemberController(
   val memberService: MemberService
 ) {
+  /**
+   * 会員情報を取得
+   *
+   * @param httpHeaders
+   */
   @GetMapping
   fun showMember(
     @RequestHeader httpHeaders: HttpHeaders
   ) = memberService.showMember(CommonHeader.of(httpHeaders))
 
+  /**
+   * 会員情報を作成
+   *
+   * @param httpHeaders
+   * @param memberPostParameter
+   * @return
+   */
   @PostMapping
   fun createMember(
     @RequestHeader httpHeaders: HttpHeaders,
     @Valid @RequestBody memberPostParameter: MemberPostParameter
   ): HttpStatus = memberService.create(CommonHeader.of(httpHeaders), memberPostParameter)
 
+  /**
+   * 会員情報を更新
+   *
+   * @param httpHeaders
+   * @param memberPutParameter
+   * @return
+   */
   @PutMapping
   fun updateMember(
     @RequestHeader httpHeaders: HttpHeaders,
     @Valid @RequestBody memberPutParameter: MemberPutParameter
   ): HttpStatus = memberService.update(CommonHeader.of(httpHeaders), memberPutParameter)
 
+  /**
+   * 会員情報を削除
+   *
+   * @param httpHeaders
+   * @return
+   */
   @DeleteMapping
   fun deleteMember(
     @RequestHeader httpHeaders: HttpHeaders
