@@ -7,7 +7,7 @@ import com.littlefeet.domain.CommonHeader
 import com.littlefeet.domain.converter.MemberConverter
 import com.littlefeet.domain.entity.Member
 import com.littlefeet.domain.exception.DbException
-import com.littlefeet.domain.exception.NotFoundException
+import com.littlefeet.domain.exception.UnAuthorizedException
 import com.littlefeet.domain.repository.MemberDao
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
@@ -52,5 +52,5 @@ class MemberService(
   fun searchMember(
     commonHeader: CommonHeader
   ): Member = memberDao.selectByToken(commonHeader.token)
-    ?: throw NotFoundException("USER NOT FOUND")
+    ?: throw UnAuthorizedException("USER NOT FOUND")
 }
