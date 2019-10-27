@@ -42,7 +42,8 @@ class MemberService(
     commonHeader: CommonHeader
   ): HttpStatus {
     val member = searchMember(commonHeader)
-    val delete = memberDao.deleteSoft(member.id)
+    // ソフトデリート(is_deletedをtrue)する
+    val delete = memberDao.update(MemberConverter.convertDeleteMember(member))
     return if (delete == 1) HttpStatus.OK
     else throw DbException("DB ERROR")
   }

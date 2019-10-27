@@ -9,17 +9,18 @@ import org.seasar.doma.Update;
 import org.seasar.doma.boot.ConfigAutowireable;
 
 /**
+ *
  */
 @ConfigAutowireable
 @Dao
 public interface MemberDao {
 
-    /**
-     * @param id
-     * @return the Member entity
-     */
-    @Select
-    Member selectById(String id);
+  /**
+   * @param id
+   * @return the Member entity
+   */
+  @Select
+  Member selectById(String id);
 
   /**
    *
@@ -28,34 +29,31 @@ public interface MemberDao {
   Member selectByToken(String token);
 
   /**
-     * @param id
-     * @param version
-     * @return the Member entity
-     */
-    @Select(ensureResult = true)
-    Member selectByIdAndVersion(String id, Integer version);
+   * @param id
+   * @param version
+   * @return the Member entity
+   */
+  @Select(ensureResult = true)
+  Member selectByIdAndVersion(String id, Integer version);
 
-    /**
-     * @param entity
-     * @return affected rows
-     */
-    @Insert
-    int insert(Member entity);
+  /**
+   * @param entity
+   * @return affected rows
+   */
+  @Insert
+  int insert(Member entity);
 
-    /**
-     * @param entity
-     * @return affected rows
-     */
-    @Update
-    int update(Member entity);
-
-    /**
-     * @param entity
-     * @return affected rows
-     */
-    @Delete
-    int delete(Member entity);
-
+  /**
+   * @param entity
+   * @return affected rows
+   */
   @Update
-  int deleteSoft(String id);
+  int update(Member entity);
+
+  /**
+   * @param entity
+   * @return affected rows
+   */
+  @Delete
+  int delete(Member entity);
 }

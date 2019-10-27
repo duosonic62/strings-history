@@ -24,4 +24,8 @@ object MemberConverter {
   ): Member = Member().apply {
     name = memberPutParameter.name
   }
+
+  fun convertDeleteMember(
+    member: Member
+  ): Member = member.apply { isDeleted = true }
 }
