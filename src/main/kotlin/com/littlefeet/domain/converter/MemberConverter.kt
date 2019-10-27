@@ -20,8 +20,9 @@ object MemberConverter {
   }
 
   fun convertUpdateMember(
-    memberPutParameter: MemberPutParameter
-  ): Member = Member().apply {
+    memberPutParameter: MemberPutParameter,
+    member: Member
+  ): Member = member.apply {
     name = memberPutParameter.name
   }
 
