@@ -5,6 +5,7 @@ import com.littlefeet.api.models.MemberPostParameter
 import com.littlefeet.api.models.MemberPutParameter
 import com.littlefeet.domain.CommonHeader
 import com.littlefeet.domain.converter.MemberConverter
+import com.littlefeet.domain.entity.Member
 import com.littlefeet.domain.exception.DbException
 import com.littlefeet.domain.repository.MemberDao
 import org.springframework.http.HttpStatus
@@ -36,4 +37,17 @@ class MemberService(
     return if (update == 1) HttpStatus.OK
     else throw DbException("DB ERROR")
   }
+
+  fun delete(
+    commonHeader: CommonHeader
+  ): HttpStatus {
+    val member = searchMember(commonHeader)
+    val delete = memberDao.deleteSoft(member.id)
+    return if (delete == 1) HttpStatus.OK
+    else throw DbException("DB ERROR")
+  }
+
+  fun searchMember(
+    commonHeader: CommonHeader
+  ): Member = memberDao.selectByToken(commonHeader.token)
 }
