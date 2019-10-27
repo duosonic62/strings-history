@@ -28,7 +28,7 @@ class MemberService(
    * @return アプリで表示する会員情報
    */
   fun show(commonHeader: CommonHeader): MemberInformation =
-    MemberConverter.convertShowMember(
+    MemberConverter.convertShowMemberResponse(
       search(commonHeader)
     )
 
@@ -43,7 +43,7 @@ class MemberService(
     commonHeader: CommonHeader,
     memberPostParameter: MemberPostParameter
   ): HttpStatus {
-    val insert = memberDao.insert(MemberConverter.convertCreateMember(memberPostParameter))
+    val insert = memberDao.insert(MemberConverter.convertCreateMemberParameter(memberPostParameter))
     return if (insert == 1) HttpStatus.OK
     else throw DbException("DB ERROR")
   }
@@ -61,7 +61,7 @@ class MemberService(
   ): HttpStatus {
     val member = search(commonHeader)
     val update = memberDao.update(
-      MemberConverter.convertUpdateMember(memberPutParameter, member)
+      MemberConverter.convertUpdateMemberParameter(memberPutParameter, member)
     )
     return if (update == 1) HttpStatus.OK
     else throw DbException("DB ERROR")
@@ -78,7 +78,7 @@ class MemberService(
   ): HttpStatus {
     val member = search(commonHeader)
     // ソフトデリート(is_deletedをtrue)する
-    val delete = memberDao.update(MemberConverter.convertDeleteMember(member))
+    val delete = memberDao.update(MemberConverter.convertDeleteMemberParameter(member))
     return if (delete == 1) HttpStatus.OK
     else throw DbException("DB ERROR")
   }
