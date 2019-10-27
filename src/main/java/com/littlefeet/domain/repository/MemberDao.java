@@ -55,4 +55,7 @@ public interface MemberDao {
      */
     @Delete
     int delete(Member entity);
+
+  @Update
+  int deleteSoft(String id);
 }
