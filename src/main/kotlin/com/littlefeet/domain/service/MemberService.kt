@@ -12,15 +12,33 @@ import com.littlefeet.domain.repository.MemberDao
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
+/**
+ * 会員情報を管理するサービス
+ *
+ * @property memberDao
+ */
 @Service
 class MemberService(
   val memberDao: MemberDao
 ) {
+  /**
+   * 会員情報を表示
+   *
+   * @param commonHeader
+   * @return アプリで表示する会員情報
+   */
   fun showMember(commonHeader: CommonHeader): MemberInformation =
     MemberConverter.convertShowMember(
       memberDao.selectByToken(commonHeader.token)
     )
 
+  /**
+   * 会員情報を作成
+   *
+   * @param commonHeader
+   * @param memberPostParameter
+   * @return 作成ステータス(200 or Error)
+   */
   fun create(
     commonHeader: CommonHeader,
     memberPostParameter: MemberPostParameter
@@ -30,6 +48,13 @@ class MemberService(
     else throw DbException("DB ERROR")
   }
 
+  /**
+   * 会員情報を更新
+   *
+   * @param commonHeader
+   * @param memberPutParameter
+   * @return 更新ステータス(200 or Error)
+   */
   fun update(
     commonHeader: CommonHeader,
     memberPutParameter: MemberPutParameter
@@ -39,6 +64,12 @@ class MemberService(
     else throw DbException("DB ERROR")
   }
 
+  /**
+   * 会員情報を削除
+   *
+   * @param commonHeader
+   * @return 削除ステータス(200 or Error)
+   */
   fun delete(
     commonHeader: CommonHeader
   ): HttpStatus {
@@ -49,6 +80,13 @@ class MemberService(
     else throw DbException("DB ERROR")
   }
 
+  /**
+   * サーバ内部用メソッド、DBに保持されている会員情報を取得
+   * フロントに表示すべきでないCommonEntityの情報も含む
+   *
+   * @param commonHeader
+   * @return
+   */
   fun searchMember(
     commonHeader: CommonHeader
   ): Member = memberDao.selectByToken(commonHeader.token)
