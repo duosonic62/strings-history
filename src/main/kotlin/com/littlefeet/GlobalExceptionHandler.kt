@@ -3,6 +3,7 @@ package com.littlefeet
 import com.littlefeet.api.models.Error
 import com.littlefeet.domain.exception.DbException
 import com.littlefeet.domain.exception.NotFoundException
+import com.littlefeet.domain.exception.UnAuthorizedException
 import com.littlefeet.util.KtLog
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -11,6 +12,40 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 @RestControllerAdvice
 class GlobalExceptionHandler {
   companion object : KtLog()
+
+  /**
+   * ユーザが見つからないエラーをUNAUTHORIZEDにハンドリングする
+   *
+   * @param ex Exception
+   * @return
+   */
+  @ExceptionHandler(UnAuthorizedException::class)
+  fun handleAuthorizationException(
+    ex: NotFoundException
+  ): Error {
+    log.warn(ex)
+    return com.littlefeet.api.models.Error(
+      code = HttpStatus.UNAUTHORIZED.value(),
+      message = ex.message
+    )
+  }
+
+  /**
+   * 該当のデータが見つからないエラーをNOT FOUNDにハンドリングする
+   *
+   * @param ex Exception
+   * @return
+   */
+  @ExceptionHandler(NotFoundException::class)
+  fun handleNotFoundException(
+    ex: NotFoundException
+  ): Error {
+    log.warn(ex)
+    return com.littlefeet.api.models.Error(
+      code = HttpStatus.NOT_FOUND.value(),
+      message = ex.message
+    )
+  }
 
   /**
    * DBエラーをINTERNAL SERVER ERRORにハンドリングする
@@ -30,22 +65,11 @@ class GlobalExceptionHandler {
   }
 
   /**
-   * 該当のデータが見つからないエラーをNOT FOUNDにハンドリングする
+   * ハンドリングできなかったエラーをINTERNAL SERVER ERRORにハンドリングする
    *
    * @param ex Exception
    * @return
    */
-  @ExceptionHandler(NotFoundException::class)
-  fun handleNotFoundException(
-    ex: NotFoundException
-  ): Error {
-    log.error(ex)
-    return com.littlefeet.api.models.Error(
-      code = HttpStatus.NOT_FOUND.value(),
-      message = ex.message
-    )
-  }
-
   @ExceptionHandler(Exception::class)
   fun handleException(
     ex: java.lang.Exception
