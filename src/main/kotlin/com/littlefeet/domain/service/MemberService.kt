@@ -27,9 +27,9 @@ class MemberService(
    * @param commonHeader
    * @return アプリで表示する会員情報
    */
-  fun showMember(commonHeader: CommonHeader): MemberInformation =
+  fun show(commonHeader: CommonHeader): MemberInformation =
     MemberConverter.convertShowMember(
-      memberDao.selectByToken(commonHeader.token)
+      search(commonHeader)
     )
 
   /**
@@ -59,7 +59,10 @@ class MemberService(
     commonHeader: CommonHeader,
     memberPutParameter: MemberPutParameter
   ): HttpStatus {
-    val update = memberDao.update(MemberConverter.convertUpdateMember(memberPutParameter))
+    val member = search(commonHeader)
+    val update = memberDao.update(
+      MemberConverter.convertUpdateMember(memberPutParameter, member)
+    )
     return if (update == 1) HttpStatus.OK
     else throw DbException("DB ERROR")
   }
@@ -73,7 +76,7 @@ class MemberService(
   fun delete(
     commonHeader: CommonHeader
   ): HttpStatus {
-    val member = searchMember(commonHeader)
+    val member = search(commonHeader)
     // ソフトデリート(is_deletedをtrue)する
     val delete = memberDao.update(MemberConverter.convertDeleteMember(member))
     return if (delete == 1) HttpStatus.OK
@@ -87,7 +90,7 @@ class MemberService(
    * @param commonHeader
    * @return
    */
-  fun searchMember(
+  fun search(
     commonHeader: CommonHeader
   ): Member = memberDao.selectByToken(commonHeader.token)
     ?: throw UnAuthorizedException("USER NOT FOUND")

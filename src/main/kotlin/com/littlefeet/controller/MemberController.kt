@@ -34,7 +34,7 @@ class MemberController(
   @GetMapping
   fun showMember(
     @RequestHeader httpHeaders: HttpHeaders
-  ) = memberService.showMember(CommonHeader.of(httpHeaders))
+  ) = memberService.show(CommonHeader.of(httpHeaders))
 
   /**
    * 会員情報を作成
