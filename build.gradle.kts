@@ -1,4 +1,3 @@
-
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 object DependencyVersions {
@@ -65,6 +64,10 @@ dependencies {
   }
   testImplementation("io.projectreactor:reactor-test")
   testCompile("com.h2database:h2:${DependencyVersions.H2}")
+  testImplementation("org.assertj:assertj-core:3.12.2")
+  /* mock */
+  testImplementation("io.mockk:mockk:1.9")
+  testImplementation("io.mockk:mockk-common:1.9")
 
   /* Doma2 */
   implementation("org.seasar.doma.boot:doma-spring-boot-starter:${DependencyVersions.DOMA_SPRING_BOOT}")
