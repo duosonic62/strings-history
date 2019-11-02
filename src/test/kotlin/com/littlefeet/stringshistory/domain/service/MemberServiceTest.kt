@@ -2,6 +2,7 @@ package com.littlefeet.stringshistory.domain.service
 
 import com.littlefeet.domain.CommonHeader
 import com.littlefeet.domain.entity.Member
+import com.littlefeet.domain.exception.UnAuthorizedException
 import com.littlefeet.domain.repository.MemberDao
 import com.littlefeet.domain.service.MemberService
 import io.mockk.every
@@ -12,11 +13,12 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import java.time.LocalDateTime
 
 @ExtendWith(MockKExtension::class)
-class MemverServiceTest {
+class MemberServiceTest {
 
   private lateinit var memberService: MemberService
 
@@ -46,6 +48,15 @@ class MemverServiceTest {
       val actual = memberService.search(dummyHeader)
       val expected = dummyMember
       Assertions.assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun negative() {
+      every { memberDao.selectByToken(any()) }.returns(null)
+      assertThrows<UnAuthorizedException> {
+        memberService.search(dummyHeader)
+
+      }
     }
   }
 }
