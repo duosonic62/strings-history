@@ -213,6 +213,36 @@ paths:
         '500':
           $ref: '#/components/responses/SystemError'
 
+  /v1/string/{stringId}:
+    delete:
+      tags:
+        - string
+      description: ギター弦情報変更
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: stringId
+          required: true
+          description: 弦ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
 
 components:
   parameters:
