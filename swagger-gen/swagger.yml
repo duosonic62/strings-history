@@ -108,11 +108,14 @@ paths:
           $ref: '#/components/responses/NotFoundError'
         '500':
           $ref: '#/components/responses/SystemError'
+
   /v1/string:
     post:
       tags:
         - string
       description: ギター弦登録
+      security:
+        - bearerAuth: []
       requestBody:
         content:
           application/json:
@@ -134,6 +137,54 @@ paths:
         '500':
           $ref: '#/components/responses/SystemError'
 
+    get:
+      tags:
+        - string
+      description: ギター弦情報検索(or検索)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: name
+          required: false
+          description: ギター弦名
+          schema:
+            type: string
+        - in: query
+          name: maker
+          required: false
+          description: ギター弦メーカー
+          schema:
+            type: string
+        - in: query
+          name: thinGauge
+          required: false
+          description: 細い弦のゲージ
+          schema:
+            type: integer
+        - in: query
+          name: thickGauge
+          required: false
+          description: 太い弦のゲージ
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StringInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
 
 components:
   parameters:
