@@ -108,6 +108,32 @@ paths:
           $ref: '#/components/responses/NotFoundError'
         '500':
           $ref: '#/components/responses/SystemError'
+  /v1/string:
+    post:
+      tags:
+        - string
+      description: ギター弦登録
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StringPostParameter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringInformation'
+        '400':
+          $ref: '#/components/responses/RequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/SystemError'
+
 
 components:
   parameters:
@@ -212,3 +238,89 @@ components:
       properties:
         name:
           $ref: '#/components/schemas/UserName'
+
+    StringPostParameter:
+      description: 弦登録パラメータ
+      type: object
+      required:
+        - name
+        - description
+        - maker
+        - thinGauge
+        - thickGauge
+      properties:
+        name:
+          type: string
+          description: 弦名
+          minLength: 1
+          maxLength: 64
+        description:
+          type: string
+          description: 弦説明
+          minLength: 1
+          maxLength: 1024
+        maker:
+          type: string
+          description: 弦メーカー
+          minLength: 1
+          maxLength: 64
+        thinGauge:
+          type: integer
+          description: 細い弦のゲージ
+          minimum: 1
+          maximum: 100
+        thickGauge:
+          type: integer
+          description: 太い弦のゲージ
+          minimum: 1
+          maximum: 100
+        url:
+          type: string
+          description: 弦メーカー
+          minLength: 1
+          maxLength: 256
+
+    StringInformation:
+      description: メンバー登録情報
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - maker
+        - thinGauge
+        - thickGauge
+      properties:
+        id:
+          type: string
+          description: 弦ID
+        name:
+          type: string
+          description: 弦名
+          minLength: 1
+          maxLength: 64
+        description:
+          type: string
+          description: 弦説明
+          minLength: 1
+          maxLength: 1024
+        maker:
+          type: string
+          description: 弦メーカー
+          minLength: 1
+          maxLength: 64
+        thinGauge:
+          type: integer
+          description: 細い弦のゲージ
+          minimum: 1
+          maximum: 100
+        thickGauge:
+          type: integer
+          description: 太い弦のゲージ
+          minimum: 1
+          maximum: 100
+        url:
+          type: string
+          description: 弦メーカー
+          minLength: 1
+          maxLength: 256
