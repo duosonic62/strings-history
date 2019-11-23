@@ -10,7 +10,7 @@ import com.littlefeet.domain.entity.Member
  */
 object MemberConverter {
   /**
-   * DBのエンティティをアプリで表示する会員情報にコンバートする
+   * インフラのエンティティをアプリで表示する会員情報にコンバートする
    *
    * @param member
    * @return アプリ表示会員情報
@@ -23,10 +23,10 @@ object MemberConverter {
     )
 
   /**
-   * APIからの作成リクエストをDBのエンティティに変更
+   * APIからの作成リクエストをインフラのエンティティに変更
    *
    * @param memberPostParameter
-   * @return 会員情報DBエンティティ
+   * @return 会員情報インフラエンティティ
    */
   fun convertCreateMemberParameter(
     memberPostParameter: MemberPostParameter
@@ -35,11 +35,11 @@ object MemberConverter {
   }
 
   /**
-   * APIからの変更リクエストをDBのエンティティに変更
+   * APIからの変更リクエストをインフラのエンティティに変更
    *
    * @param memberPutParameter
    * @param member
-   * @return 会員情報DBエンティティ
+   * @return 会員情報インフラエンティティ
    */
   fun convertUpdateMemberParameter(
     memberPutParameter: MemberPutParameter,
@@ -49,11 +49,11 @@ object MemberConverter {
   }
 
   /**
-   * APIからの削除リクエストをDBのエンティティに変更
+   * APIからの削除リクエストをインフラのエンティティに変更
    *
    * @param memberPutParameter
    * @param member
-   * @return 会員情報DBエンティティ
+   * @return 会員情報インフラエンティティ
    */
   fun convertDeleteMemberParameter(
     member: Member
