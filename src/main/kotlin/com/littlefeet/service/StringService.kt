@@ -1,4 +1,4 @@
-package com.littlefeet.domain.service
+package com.littlefeet.service
 
 import com.littlefeet.api.models.StringInformation
 import com.littlefeet.api.models.StringRegisterParameter

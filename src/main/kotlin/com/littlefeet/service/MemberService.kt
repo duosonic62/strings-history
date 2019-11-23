@@ -1,4 +1,4 @@
-package com.littlefeet.domain.service
+package com.littlefeet.service
 
 import com.littlefeet.api.models.MemberInformation
 import com.littlefeet.api.models.MemberPostParameter

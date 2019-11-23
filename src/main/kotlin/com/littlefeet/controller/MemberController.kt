@@ -3,7 +3,7 @@ package com.littlefeet.controller
 import com.littlefeet.api.models.MemberPostParameter
 import com.littlefeet.api.models.MemberPutParameter
 import com.littlefeet.domain.CommonHeader
-import com.littlefeet.domain.service.MemberService
+import com.littlefeet.service.MemberService
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping

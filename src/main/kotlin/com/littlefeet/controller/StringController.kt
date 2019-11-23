@@ -3,7 +3,7 @@ package com.littlefeet.controller
 import com.littlefeet.api.models.StringInformation
 import com.littlefeet.api.models.StringRegisterParameter
 import com.littlefeet.domain.CommonHeader
-import com.littlefeet.domain.service.StringService
+import com.littlefeet.service.StringService
 import org.springframework.http.HttpHeaders
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
