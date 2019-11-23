@@ -4,7 +4,7 @@ import com.littlefeet.domain.CommonHeader
 import com.littlefeet.domain.entity.Member
 import com.littlefeet.domain.exception.UnAuthorizedException
 import com.littlefeet.domain.repository.MemberDao
-import com.littlefeet.domain.service.MemberService
+import com.littlefeet.service.MemberService
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
