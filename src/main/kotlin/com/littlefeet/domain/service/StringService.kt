@@ -24,14 +24,6 @@ class StringService(
   ): StringInformation {
     val param = StringConverter.convertCreateStringParameter(stringRegisterParameter)
     stringDao.insert(param)
-    return StringInformation(
-      id = param.id,
-      name = param.name,
-      description = param.description,
-      maker = param.maker,
-      thinGauge = param.thinGauge.toInt(),
-      thickGauge = param.thickGauge.toInt(),
-      url = param.url
-    )
+    return StringConverter.convertStringResponse(param)
   }
 }

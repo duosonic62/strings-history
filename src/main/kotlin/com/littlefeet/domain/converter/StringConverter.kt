@@ -1,5 +1,6 @@
 package com.littlefeet.domain.converter
 
+import com.littlefeet.api.models.StringInformation
 import com.littlefeet.api.models.StringRegisterParameter
 import com.littlefeet.domain.entity.GuitarString
 
@@ -23,5 +24,23 @@ object StringConverter {
     thickGauge = stringRegisterParameter.thickGauge.toShort()
     url = stringRegisterParameter.url
   }
+
+  /**
+   * 弦情報のインフラエンティティからレスポンスエンティティに変換
+   *
+   * @param guitarString
+   * @return 弦情報レスポンスエンティティ
+   */
+  fun convertStringResponse(
+    guitarString: GuitarString
+  ): StringInformation = StringInformation(
+    id = guitarString.id,
+    name = guitarString.name,
+    description = guitarString.description,
+    maker = guitarString.maker,
+    thinGauge = guitarString.thinGauge.toInt(),
+    thickGauge = guitarString.thickGauge.toInt(),
+    url = guitarString.url
+  )
 
 }
