@@ -4,6 +4,7 @@ import com.littlefeet.api.models.StringInformation
 import com.littlefeet.api.models.StringRegisterParameter
 import com.littlefeet.domain.CommonHeader
 import com.littlefeet.domain.converter.StringConverter
+import com.littlefeet.domain.exception.DbException
 import com.littlefeet.domain.repository.GuitarStringDao
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
@@ -23,8 +24,8 @@ class StringService(
     commonHeader: CommonHeader,
     stringRegisterParameter: StringRegisterParameter
   ): StringInformation {
-    val param = StringConverter.convertCreateStringParameter(stringRegisterParameter)
-    stringDao.insert(param)
+    val param = StringConverter.convertRegisterStringParameter(stringRegisterParameter)
+    if (stringDao.insert(param) != 1) throw DbException("Can't Register String.")
     return StringConverter.convertStringResponse(param)
   }
 
@@ -39,8 +40,8 @@ class StringService(
     commonHeader: CommonHeader,
     stringRegisterParameter: StringRegisterParameter
   ): HttpStatus {
-    val param = StringConverter.convertCreateStringParameter(stringRegisterParameter)
-    stringDao.update(param)
+    val param = StringConverter.convertRegisterStringParameter(stringRegisterParameter)
+    if (stringDao.update(param) != 1) throw DbException("Can't Register String.")
     return HttpStatus.OK
   }
 }
