@@ -14,7 +14,7 @@ object StringConverter {
    * @param stringRegisterParameter
    * @return 弦登録インフラエンティティ
    */
-  fun convertCreateStringParameter(
+  fun convertRegisterStringParameter(
     stringRegisterParameter: StringRegisterParameter
   ): GuitarString = GuitarString().apply {
     name = stringRegisterParameter.name
