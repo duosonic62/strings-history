@@ -12,10 +12,10 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: hoge
-      uses: duosonic/github-actions/hoge@master
+      uses: duosonic/github-actions\/hoge@master
 
     - name: huga
-      uses: duosonic/github-actions/huga@master
+      uses: duosonic/github-actions\/huga@master
 
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
