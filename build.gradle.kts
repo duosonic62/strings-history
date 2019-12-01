@@ -7,7 +7,7 @@ object DependencyVersions {
   const val DOMA_SPRING_BOOT = "1.1.1"
   const val DOMA = "2.19.3"
   const val FLYWAY = "5.2.3"
-  const val MYSQL_CONNECTER = "5.1.38"
+  const val MYSQL_CONNECTER = "5.1.48"
   const val H2 = "1.4.199"
 }
 
@@ -99,7 +99,7 @@ tasks.withType<KotlinCompile> {
 
 /* flyway db migration task */
 flyway {
-  url = "jdbc:mysql://localhost:3306/strings_history?useSSL=false"
+  url = "jdbc:mysql://localhost:3306/strings_history?allowPublicKeyRetrieval=true&useSSL=false"
   user = "root"
   password = "pass"
   locations = arrayOf("filesystem:src/main/resources/db/migration", "filesystem:src/main/resources/db/insert")
