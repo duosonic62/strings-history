@@ -6,11 +6,13 @@ import com.littlefeet.domain.CommonHeader
 import com.littlefeet.service.StringService
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 
@@ -49,4 +51,23 @@ class StringController(
     @RequestHeader httpHeaders: HttpHeaders,
     @Valid @RequestBody stringRegisterParameter: StringRegisterParameter
   ): HttpStatus = stringService.update(CommonHeader.of(httpHeaders), stringRegisterParameter)
+
+  /**
+   * 弦情報検索
+   *
+   * @param httpHeaders
+   * @param name
+   * @param maker
+   * @param thinGage
+   * @param thickGage
+   * @return 検索結果
+   */
+  @GetMapping
+  fun search(
+    @RequestHeader httpHeaders: HttpHeaders,
+    @RequestParam("name") name: String? = null,
+    @RequestParam("maker") maker: String? = null,
+    @RequestParam("thinGage") thinGage: Int? = null,
+    @RequestParam("thickGage") thickGage: Int? = null
+  ): List<StringInformation> = stringService.search(CommonHeader.of(httpHeaders), name, maker, thinGage, thickGage)
 }

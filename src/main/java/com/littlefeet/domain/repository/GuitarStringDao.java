@@ -1,53 +1,58 @@
 package com.littlefeet.domain.repository;
 
 import com.littlefeet.domain.entity.GuitarString;
-  import org.seasar.doma.Dao;
-  import org.seasar.doma.Delete;
-  import org.seasar.doma.Insert;
-  import org.seasar.doma.Select;
-  import org.seasar.doma.Update;
-  import org.seasar.doma.boot.ConfigAutowireable;
+import org.seasar.doma.Dao;
+import org.seasar.doma.Delete;
+import org.seasar.doma.Insert;
+import org.seasar.doma.Select;
+import org.seasar.doma.Update;
+import org.seasar.doma.boot.ConfigAutowireable;
+
+import java.util.List;
 
 /**
-*
-*/
-  @ConfigAutowireable
+ *
+ */
+@ConfigAutowireable
 @Dao
 public interface GuitarStringDao {
 
   /**
-    * @param id
-  * @return the GuitarString entity
-  */
+   * @param id
+   * @return the GuitarString entity
+   */
   @Select
   GuitarString selectById(String id);
 
   /**
-    * @param id
-  * @param version
-  * @return the GuitarString entity
-  */
+   * @param id
+   * @param version
+   * @return the GuitarString entity
+   */
   @Select(ensureResult = true)
   GuitarString selectByIdAndVersion(String id, Integer version);
 
-/**
-* @param entity
-* @return affected rows
-*/
-@Insert
-int insert(GuitarString entity);
+  @Select
+  List<GuitarString> selectByNameOrMakerOrGage(String name, String maker, Integer thinGauge, Integer thickGauge);
 
-/**
-* @param entity
-* @return affected rows
-*/
-@Update
-int update(GuitarString entity);
+  /**
+   * @param entity
+   * @return affected rows
+   */
+  @Insert
+  int insert(GuitarString entity);
 
-/**
-* @param entity
-* @return affected rows
-*/
-@Delete
-int delete(GuitarString entity);
+  /**
+   * @param entity
+   * @return affected rows
+   */
+  @Update
+  int update(GuitarString entity);
+
+  /**
+   * @param entity
+   * @return affected rows
+   */
+  @Delete
+  int delete(GuitarString entity);
 }

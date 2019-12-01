@@ -44,4 +44,24 @@ class StringService(
     if (stringDao.update(param) != 1) throw DbException("Can't Register String.")
     return HttpStatus.OK
   }
+
+  /**
+   * 弦情報を検索
+   *
+   * @param commonHeader
+   * @param name
+   * @param maker
+   * @param thinGage
+   * @param thickGage
+   * @return 弦情報
+   */
+  fun search(
+    commonHeader: CommonHeader,
+    name: String? = null,
+    maker: String? = null,
+    thinGage: Int? = null,
+    thickGage: Int? = null
+  ): List<StringInformation> =
+    stringDao.selectByNameOrMakerOrGage(name, maker, thinGage, thickGage)
+      .map { StringConverter.convertStringResponse(it) }
 }
