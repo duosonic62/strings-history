@@ -4,9 +4,13 @@ import com.littlefeet.api.models.StringRegisterParameter
 import com.littlefeet.domain.entity.GuitarString
 import org.springframework.stereotype.Repository
 
+/**
+ * ギター弦に関する永続化の責務を果たすインターフェース
+ *
+ */
 @Repository
 interface StringRepository {
-  fun findBy(id: String): GuitarString
+  fun findBy(id: String): GuitarString?
 
   fun findBy(
     name: String? = null,
