@@ -3,7 +3,7 @@ package com.littlefeet.stringshistory.domain.service
 import com.littlefeet.domain.CommonHeader
 import com.littlefeet.domain.entity.Member
 import com.littlefeet.domain.exception.UnAuthorizedException
-import com.littlefeet.domain.repository.MemberDao
+import com.littlefeet.domain.repository.MemberRepository
 import com.littlefeet.service.MemberService
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -23,7 +23,7 @@ class MemberServiceTest {
   private lateinit var memberService: MemberService
 
   @MockK
-  private lateinit var memberDao: MemberDao
+  private lateinit var memberRepository: MemberRepository
 
   @RelaxedMockK
   private lateinit var dummyHeader: CommonHeader
@@ -37,14 +37,14 @@ class MemberServiceTest {
 
   @BeforeEach
   fun setUp() {
-    memberService = MemberService(memberDao)
+    memberService = MemberService(memberRepository)
   }
 
   @Nested
   inner class SearchTest {
     @Test
     fun positive() {
-      every { memberDao.selectByToken(any()) }.returns(dummyMember)
+      every { memberRepository.findBy(any()) }.returns(dummyMember)
       val actual = memberService.search(dummyHeader)
       val expected = dummyMember
       Assertions.assertThat(actual).isEqualTo(expected)
@@ -52,7 +52,7 @@ class MemberServiceTest {
 
     @Test
     fun negative() {
-      every { memberDao.selectByToken(any()) }.returns(null)
+      every { memberRepository.findBy(any()) }.returns(null)
       assertThrows<UnAuthorizedException> {
         memberService.search(dummyHeader)
 
