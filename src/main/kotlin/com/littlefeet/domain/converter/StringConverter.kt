@@ -26,6 +26,24 @@ object StringConverter {
   }
 
   /**
+   * APIからの変更リクエストをインフラのエンティティに変換
+   *
+   * @param stringRegisterParameter
+   * @return 弦登録インフラエンティティ
+   */
+  fun convertUpdateStringParameter(
+    string: GuitarString,
+    stringRegisterParameter: StringRegisterParameter
+  ): GuitarString = string.apply {
+    name = stringRegisterParameter.name
+    description = stringRegisterParameter.description
+    maker = stringRegisterParameter.maker
+    thickGauge = stringRegisterParameter.thinGauge.toShort()
+    thickGauge = stringRegisterParameter.thickGauge.toShort()
+    url = stringRegisterParameter.url
+  }
+
+  /**
    * 弦情報のインフラエンティティからレスポンスエンティティに変換
    *
    * @param guitarString
