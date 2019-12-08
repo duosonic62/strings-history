@@ -1,4 +1,4 @@
-package com.littlefeet.controller
+package com.littlefeet.api.controller
 
 import com.littlefeet.api.models.StringInformation
 import com.littlefeet.api.models.StringRegisterParameter
