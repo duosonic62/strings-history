@@ -51,8 +51,9 @@ class StringController(
   @PutMapping
   fun updateString(
     @RequestHeader httpHeaders: HttpHeaders,
+    @PathVariable id: String,
     @Valid @RequestBody stringRegisterParameter: StringRegisterParameter
-  ): HttpStatus = stringService.update(CommonHeader.of(httpHeaders), stringRegisterParameter)
+  ): HttpStatus = stringService.update(CommonHeader.of(httpHeaders), id, stringRegisterParameter)
 
   /**
    * 弦削除コントローラ
