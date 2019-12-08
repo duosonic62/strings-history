@@ -33,11 +33,13 @@ class StringService(
    * 弦情報を更新
    *
    * @param commonHeader
+   * @param id
    * @param stringRegisterParameter
    * @return 更新状況
    */
   fun update(
     commonHeader: CommonHeader,
+    id: String,
     stringRegisterParameter: StringRegisterParameter
   ): HttpStatus {
     val param = StringConverter.convertRegisterStringParameter(stringRegisterParameter)
