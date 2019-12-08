@@ -46,6 +46,23 @@ class StringService(
   }
 
   /**
+   * 弦情報を削除
+   *
+   * @param id
+   * @param commonHeader
+   * @return 削除状況
+   */
+  fun delete(
+    id: String,
+    commonHeader: CommonHeader
+  ): HttpStatus {
+    val param = stringDao.selectById(id)
+    param.isDeleted = true
+    if (stringDao.update(param) != 1) throw  DbException("Can't Delete String.")
+    return HttpStatus.OK
+  }
+
+  /**
    * 弦情報を検索
    *
    * @param commonHeader
