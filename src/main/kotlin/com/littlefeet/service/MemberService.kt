@@ -8,7 +8,7 @@ import com.littlefeet.domain.converter.MemberConverter
 import com.littlefeet.domain.entity.Member
 import com.littlefeet.domain.exception.DbException
 import com.littlefeet.domain.exception.UnAuthorizedException
-import com.littlefeet.domain.repository.MemberDao
+import com.littlefeet.domain.repository.MemberRepository
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service
  */
 @Service
 class MemberService(
-  val memberDao: MemberDao
+  private val memberRepository: MemberRepository
 ) {
   /**
    * 会員情報を表示
@@ -42,11 +42,12 @@ class MemberService(
   fun create(
     commonHeader: CommonHeader,
     memberPostParameter: MemberPostParameter
-  ): HttpStatus {
-    val insert = memberDao.insert(MemberConverter.convertCreateMemberParameter(memberPostParameter))
-    return if (insert == 1) HttpStatus.OK
-    else throw DbException("DB ERROR")
-  }
+  ): HttpStatus =
+    if (memberRepository.put(memberPostParameter)) {
+      HttpStatus.OK
+    } else {
+      throw DbException("Can't save member information.")
+    }
 
   /**
    * 会員情報を更新
@@ -58,14 +59,12 @@ class MemberService(
   fun update(
     commonHeader: CommonHeader,
     memberPutParameter: MemberPutParameter
-  ): HttpStatus {
-    val member = search(commonHeader)
-    val update = memberDao.update(
-      MemberConverter.convertUpdateMemberParameter(memberPutParameter, member)
-    )
-    return if (update == 1) HttpStatus.OK
-    else throw DbException("DB ERROR")
-  }
+  ): HttpStatus =
+    if (memberRepository.update(search(commonHeader), memberPutParameter)) {
+      HttpStatus.OK
+    } else {
+      throw DbException("Can't update member information.")
+    }
 
   /**
    * 会員情報を削除
@@ -75,13 +74,12 @@ class MemberService(
    */
   fun delete(
     commonHeader: CommonHeader
-  ): HttpStatus {
-    val member = search(commonHeader)
-    // ソフトデリート(is_deletedをtrue)する
-    val delete = memberDao.update(MemberConverter.convertDeleteMemberParameter(member))
-    return if (delete == 1) HttpStatus.OK
-    else throw DbException("DB ERROR")
-  }
+  ): HttpStatus =
+    if (memberRepository.delete(search(commonHeader))) {
+      HttpStatus.OK
+    } else {
+      throw DbException("Can't delete member information.")
+    }
 
   /**
    * サーバ内部用メソッド、DBに保持されている会員情報を取得
@@ -92,6 +90,6 @@ class MemberService(
    */
   fun search(
     commonHeader: CommonHeader
-  ): Member = memberDao.selectByToken(commonHeader.token)
+  ): Member = memberRepository.findBy(commonHeader)
     ?: throw UnAuthorizedException("USER NOT FOUND")
 }
