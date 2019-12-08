@@ -6,7 +6,9 @@ import com.littlefeet.domain.CommonHeader
 import com.littlefeet.service.StringService
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -51,6 +53,19 @@ class StringController(
     @RequestHeader httpHeaders: HttpHeaders,
     @Valid @RequestBody stringRegisterParameter: StringRegisterParameter
   ): HttpStatus = stringService.update(CommonHeader.of(httpHeaders), stringRegisterParameter)
+
+  /**
+   * 弦削除コントローラ
+   *
+   * @param id
+   * @param httpHeaders
+   * @return 削除状況
+   */
+  @DeleteMapping("/{id}")
+  fun delete(
+    @PathVariable id: String,
+    @RequestHeader httpHeaders: HttpHeaders
+  ): HttpStatus = HttpStatus.OK
 
   /**
    * 弦情報検索
