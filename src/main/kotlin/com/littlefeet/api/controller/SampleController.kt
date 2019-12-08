@@ -1,4 +1,4 @@
-package com.littlefeet.controller
+package com.littlefeet.api.controller
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
