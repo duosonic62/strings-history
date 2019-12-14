@@ -1,5 +1,6 @@
 package com.littlefeet.domain
 
+import com.littlefeet.domain.exception.UnAuthorizedException
 import org.springframework.http.HttpHeaders
 
 /**
@@ -13,6 +14,6 @@ class CommonHeader private constructor(
     fun of(httpHeaders: HttpHeaders): CommonHeader =
       httpHeaders.getFirst("Authorization")?.let {
         CommonHeader(it.replace("Bearer ", ""))
-      } ?: throw Exception("authorization error")
+      } ?: throw UnAuthorizedException("authorization error")
   }
 }
