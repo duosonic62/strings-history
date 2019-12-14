@@ -12,7 +12,7 @@ class CommonHeader private constructor(
     // TODO ERROR HANDLING
     fun of(httpHeaders: HttpHeaders): CommonHeader =
       httpHeaders.getFirst("Authorization")?.let {
-        CommonHeader(it)
+        CommonHeader(it.replace("Bearer ", ""))
       } ?: throw Exception("authorization error")
   }
 }
