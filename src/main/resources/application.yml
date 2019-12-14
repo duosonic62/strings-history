@@ -5,6 +5,8 @@ spring:
     url: jdbc:mysql://localhost:3306/strings_history?useSSL=false
     username: root
     password: pass
+  flyway:
+    locations: classpath:db/migration,classpath:db/insert
 
 # Doma2 Reference URL <https://github.com/domaframework/doma-spring-boot>
 doma:
