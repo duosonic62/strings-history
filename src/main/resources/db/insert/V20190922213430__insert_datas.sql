@@ -22,4 +22,4 @@ VALUES ('4E8F28EDA9C64673924A9C5966D082C9', 'Eatrhwood', 'BRONZE WOUND', 'ERNIEB
 INSERT INTO guitar
 (id, member_id, name, description, body_type, maker, is_deleted, version, created_at, updated_at)
 VALUES ('A4A4EDF948D241C38088C2D4BD7A4AA1', '4E8F28EDA9C64673924A9C5966D082C8', 'Stratocaster 72', 'white body',
-        'sTRATOCASTER', 'Fender', false, 1, now(), now())
+        'STRATOCASTER', 'Fender', false, 1, now(), now())

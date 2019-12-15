@@ -31,6 +31,6 @@ class DefaultGuitartRepository(
    * @return 保存したギター情報
    */
   override fun put(guitar: Guitar): Boolean =
-    guitarDao.insert(guitar) != 1
+    guitarDao.insert(guitar) == 1
 
 }
