@@ -1,54 +1,44 @@
 package com.littlefeet.api.models
 
-import java.util.Objects
-import com.fasterxml.jackson.annotation.JsonValue
-import javax.validation.constraints.DecimalMax
-import javax.validation.constraints.DecimalMin
-import javax.validation.constraints.Max
-import javax.validation.constraints.Min
-import javax.validation.constraints.NotNull
-import javax.validation.constraints.Pattern
-import javax.validation.constraints.Size
-
 /**
 * ギターボディータイプ
 * Values: sTRATOCASTER,tELECASTER,jAZZMASTER,jAGUAR,mUSTANG,lESPAUL,sEMIACOUSTIC,fULLACOUSTIC,sG,fLYINGV,eXPLORER,fIREBIRD,aCOUSTIC,pRECISIONBASS,jAZZBASE,oTHERGUITAR,oTHERBASE
 */
 enum class GuitarBodyType(val value: kotlin.String) {
 
-    sTRATOCASTER("STRATOCASTER"),
+  STRATOCASTER("STRATOCASTER"),
 
-    tELECASTER("TELECASTER"),
+  TELECASTER("TELECASTER"),
 
-    jAZZMASTER("JAZZ_MASTER"),
+  JAZZMASTER("JAZZ_MASTER"),
 
-    jAGUAR("JAGUAR"),
+  JAGUAR("JAGUAR"),
 
-    mUSTANG("MUSTANG"),
+  MUSTANG("MUSTANG"),
 
-    lESPAUL("LES_PAUL"),
+  LESPAUL("LES_PAUL"),
 
-    sEMIACOUSTIC("SEMI_ACOUSTIC"),
+  SEMIACOUSTIC("SEMI_ACOUSTIC"),
 
-    fULLACOUSTIC("FULL_ACOUSTIC"),
+  FULLACOUSTIC("FULL_ACOUSTIC"),
 
-    sG("SG"),
+  SG("SG"),
 
-    fLYINGV("FLYING_V"),
+  FLYINGV("FLYING_V"),
 
-    eXPLORER("EXPLORER"),
+  EXPLORER("EXPLORER"),
 
-    fIREBIRD("FIRE_BIRD"),
+  FIREBIRD("FIRE_BIRD"),
 
-    aCOUSTIC("ACOUSTIC"),
+  ACOUSTIC("ACOUSTIC"),
 
-    pRECISIONBASS("PRECISION_BASS"),
+  PRECISIONBASS("PRECISION_BASS"),
 
-    jAZZBASE("JAZZ_BASE"),
+  JAZZBASE("JAZZ_BASE"),
 
-    oTHERGUITAR("OTHER_GUITAR"),
+  OTHERGUITAR("OTHER_GUITAR"),
 
-    oTHERBASE("OTHER_BASE");
+  OTHERBASE("OTHER_BASE");
 
 }
 
