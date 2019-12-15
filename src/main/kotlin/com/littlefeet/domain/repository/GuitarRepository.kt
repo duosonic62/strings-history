@@ -4,4 +4,5 @@ import com.littlefeet.domain.entity.Guitar
 
 interface GuitarRepository {
   fun findAll(guitarId: String): List<Guitar>
+  fun put(guitar: Guitar): Boolean
 }

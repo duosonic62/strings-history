@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 
 /**
- * 弦情報を管理するクラス
+ * 弦情報に関するコントローラ
  *
  */
 @RestController
