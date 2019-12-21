@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 /**
  * GuitarRepositoroyのコンクリートクラス
  *
- * @property guitarRepository
+ * @property guitarDao
  */
 @Component
 class DefaultGuitartRepository(
