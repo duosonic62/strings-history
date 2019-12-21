@@ -6,6 +6,7 @@ import com.littlefeet.domain.CommonHeader
 import com.littlefeet.service.GuitarService
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -75,4 +76,10 @@ class GuitarController(
     @PathVariable id: String,
     @Valid @RequestBody guitarRegisterParameter: GuitarRegisterParameter
   ): HttpStatus = guitarService.update(CommonHeader.of(httpHeaders), guitarRegisterParameter, id)
+
+  @DeleteMapping("/{id}")
+  fun delete(
+    @RequestHeader httpHeaders: HttpHeaders,
+    @PathVariable id: String
+  ): HttpStatus = guitarService.delete(CommonHeader.of(httpHeaders), id)
 }
