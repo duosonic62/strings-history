@@ -25,7 +25,10 @@ public interface GuitarDao {
   Guitar selectById(String id);
 
   @Select
-  List<Guitar> findByUserId(String memberId);
+  List<Guitar> findByMemberId(String memberId);
+
+  @Select
+  Guitar findByIdAndMemberId(String id, String memberId);
 
   /**
    * @param id
