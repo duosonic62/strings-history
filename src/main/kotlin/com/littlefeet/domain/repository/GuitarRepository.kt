@@ -7,4 +7,5 @@ interface GuitarRepository {
   fun findAll(memberId: String): List<Guitar>
   fun put(guitar: Guitar): Boolean
   fun update(guitar: Guitar): Boolean
+  fun delete(guitar: Guitar): Boolean
 }

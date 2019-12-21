@@ -78,7 +78,7 @@ class GuitarService(
    *
    * @param commonHeader
    * @param guitarRegisterParameter
-   * @param id
+   * @param guitarId
    * @return 保存状況
    */
   fun update(
@@ -97,4 +97,21 @@ class GuitarService(
       if (guitarRepository.update(guitar)) HttpStatus.OK else throw DbException("DB ERROR")
     }
 
+  /**
+   * 自分のギター情報を削除
+   *
+   * @param commonHeader
+   * @param guitarId
+   * @return 削除状況
+   */
+  fun delete(
+    commonHeader: CommonHeader,
+    guitarId: String
+  ): HttpStatus =
+    authorizationMemberService.authorizationScope(commonHeader) { member ->
+      val target =
+        guitarRepository.findByIdAndMemberId(guitarId, member.id)
+          ?: throw NotFoundException("Guitar Not Found ID: $guitarId")
+      if (guitarRepository.delete(target)) HttpStatus.OK else throw DbException("DB ERROR")
+    }
 }

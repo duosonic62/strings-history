@@ -51,4 +51,14 @@ class DefaultGuitarRepository(
    */
   override fun update(guitar: Guitar): Boolean =
     guitarDao.update(guitar) == 1
+
+  /**
+   * ギター情報を論理削除
+   *
+   * @param guitar
+   * @return
+   */
+  override fun delete(guitar: Guitar): Boolean =
+    guitarDao.update(guitar.apply { isDeleted = true }) == 1
+
 }
