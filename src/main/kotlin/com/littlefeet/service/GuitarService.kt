@@ -39,6 +39,25 @@ class GuitarService(
     }
 
   /**
+   * idにひもづく自分のギターを表示
+   *
+   * @param commonHeader
+   * @param guitarId
+   * @return ギター情報
+   */
+  fun findById(
+    commonHeader: CommonHeader,
+    guitarId: String
+  ): GuitarInformation =
+    authorizationMemberService.authorizationScope(commonHeader) { member ->
+      val guitar = guitarRepository.findByIdAndMemberId(guitarId, member.id)
+        ?: throw NotFoundException("Guitar Not Found ID: $guitarId")
+      GuitarConverter.convertGuitarResponse(
+        guitar
+      )
+    }
+
+  /**
    * 自分のギターを保存
    *
    * @param commonHeader
@@ -65,11 +84,12 @@ class GuitarService(
   fun update(
     commonHeader: CommonHeader,
     guitarRegisterParameter: GuitarRegisterParameter,
-    id: String
+    guitarId: String
   ): HttpStatus =
     authorizationMemberService.authorizationScope(commonHeader) { member ->
       val target =
-        guitarRepository.findByIdAndMemberId(id, member.id) ?: throw NotFoundException("Guitar Not Found ID: $id")
+        guitarRepository.findByIdAndMemberId(guitarId, member.id)
+          ?: throw NotFoundException("Guitar Not Found ID: $guitarId")
       val guitar = GuitarConverter.applayGuitarUpdate(
         target,
         guitarRegisterParameter

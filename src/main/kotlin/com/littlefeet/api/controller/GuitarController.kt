@@ -38,6 +38,18 @@ class GuitarController(
   ): List<GuitarInformation> = guitarService.show(CommonHeader.of(httpHeaders))
 
   /**
+   * idにひもづくギター情報取得
+   *
+   * @param httpHeaders
+   * @return ギター情報
+   */
+  @GetMapping("/{id}")
+  fun findById(
+    @RequestHeader httpHeaders: HttpHeaders,
+    @PathVariable id: String
+  ): GuitarInformation = guitarService.findById(CommonHeader.of(httpHeaders), id)
+
+  /**
    * ギター情報作成
    *
    * @param httpHeaders
