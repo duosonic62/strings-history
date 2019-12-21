@@ -11,26 +11,44 @@ import org.springframework.stereotype.Component
  * @property guitarDao
  */
 @Component
-class DefaultGuitartRepository(
+class DefaultGuitarRepository(
   private val guitarDao: GuitarDao
 ) : GuitarRepository {
 
   /**
+   * 自分が所有しているギターをIDで取得
+   *
+   * @param guitarId
+   * @param memberId
+   * @return idで指定されたギター情報
+   */
+  override fun findByIdAndMemberId(guitarId: String, memberId: String): Guitar? =
+    guitarDao.findByIdAndMemberId(guitarId, memberId)
+
+  /**
    * 自分の所有しているギターを全件取得
    *
-   * @param userId
+   * @param memberId
    * @return 所有している全件のギター情報
    */
-  override fun findAll(userId: String): List<Guitar> =
-    guitarDao.findByUserId(userId)
+  override fun findAll(memberId: String): List<Guitar> =
+    guitarDao.findByMemberId(memberId)
 
   /**
    * ギター情報を保存
    *
    * @param guitar
-   * @return 保存したギター情報
+   * @return 保存状況
    */
   override fun put(guitar: Guitar): Boolean =
     guitarDao.insert(guitar) == 1
 
+  /**
+   * ギター情報を変更
+   *
+   * @param guitar
+   * @return 保存状況
+   */
+  override fun update(guitar: Guitar): Boolean =
+    guitarDao.update(guitar) == 1
 }

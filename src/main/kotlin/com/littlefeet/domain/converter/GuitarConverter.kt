@@ -45,7 +45,7 @@ object GuitarConverter {
    *
    * @param param
    * @param member
-   * @return
+   * @return インフラエンティティ
    */
   fun convertRegisterGuitarParameter(
     param: GuitarRegisterParameter,
@@ -57,4 +57,19 @@ object GuitarConverter {
     bodyType = param.bodyType.value
     maker = param.maker
   }
+
+  /**
+   * リクエストパラメータをインフラエンティティに適用する
+   *
+   * @param guitar
+   * @param param
+   * @return インフラエンティティ
+   */
+  fun applayGuitarUpdate(guitar: Guitar, param: GuitarRegisterParameter): Guitar =
+    guitar.apply {
+      name = param.name
+      description = param.description
+      bodyType = param.bodyType.value
+      maker = param.maker
+    }
 }

@@ -5,6 +5,7 @@ import com.littlefeet.api.models.GuitarRegisterParameter
 import com.littlefeet.domain.CommonHeader
 import com.littlefeet.domain.converter.GuitarConverter
 import com.littlefeet.domain.exception.DbException
+import com.littlefeet.domain.exception.NotFoundException
 import com.littlefeet.domain.repository.GuitarRepository
 import com.littlefeet.domain.service.AuthorizationMemberService
 import org.springframework.http.HttpStatus
@@ -42,7 +43,7 @@ class GuitarService(
    *
    * @param commonHeader
    * @param guitarRegisterParameter
-   * @return 保存したギター情報
+   * @return 保存状況
    */
   fun create(
     commonHeader: CommonHeader,
@@ -51,6 +52,29 @@ class GuitarService(
     authorizationMemberService.authorizationScope(commonHeader) { member ->
       val entity = GuitarConverter.convertRegisterGuitarParameter(guitarRegisterParameter, member)
       if (guitarRepository.put(entity)) HttpStatus.OK else throw DbException("DB ERROR")
+    }
+
+  /**
+   * 自分のギターを編集
+   *
+   * @param commonHeader
+   * @param guitarRegisterParameter
+   * @param id
+   * @return 保存状況
+   */
+  fun update(
+    commonHeader: CommonHeader,
+    guitarRegisterParameter: GuitarRegisterParameter,
+    id: String
+  ): HttpStatus =
+    authorizationMemberService.authorizationScope(commonHeader) { member ->
+      val target =
+        guitarRepository.findByIdAndMemberId(id, member.id) ?: throw NotFoundException("Guitar Not Found ID: $id")
+      val guitar = GuitarConverter.applayGuitarUpdate(
+        target,
+        guitarRegisterParameter
+      )
+      if (guitarRepository.update(guitar)) HttpStatus.OK else throw DbException("DB ERROR")
     }
 
 }

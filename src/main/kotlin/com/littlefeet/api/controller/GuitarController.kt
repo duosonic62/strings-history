@@ -7,7 +7,9 @@ import com.littlefeet.service.GuitarService
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
@@ -46,4 +48,19 @@ class GuitarController(
     @RequestHeader httpHeaders: HttpHeaders,
     @Valid @RequestBody guitarRegisterParameter: GuitarRegisterParameter
   ): HttpStatus = guitarService.create(CommonHeader.of(httpHeaders), guitarRegisterParameter)
+
+  /**
+   * ギター情報編集
+   *
+   * @param httpHeaders
+   * @param id
+   * @param guitarRegisterParameter
+   * @return
+   */
+  @PutMapping("/{id}")
+  fun update(
+    @RequestHeader httpHeaders: HttpHeaders,
+    @PathVariable id: String,
+    @Valid @RequestBody guitarRegisterParameter: GuitarRegisterParameter
+  ): HttpStatus = guitarService.update(CommonHeader.of(httpHeaders), guitarRegisterParameter, id)
 }
